@@ -1,0 +1,64 @@
+<div class="form-check form-check-inline">
+  <input class="form-check-input position-static" type="checkbox" [(ngModel)]="canDelete">
+  <label class="form-check-label">
+    Enable Delete
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input position-static" type="radio" name="sort" value="sort" (change)="onSort($event)" [checked]="sort">
+  <label class="form-check-label">
+    Sort
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input position-static" type="radio" name="sort" value="reverse" (change)="onSort($event)" [checked]="!sort">
+  <label class="form-check-label">
+    Reverse
+  </label>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th *ngFor="let header of columnHeaders" (click)="onSelectHeader(header)">
+        {{header}}
+      </th>
+      <th *ngIf="canDelete">
+        Delete
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of DataSource" (click)="onSelectRow(row)">
+      <td *ngFor="let header of columnHeaders">
+        {{row[header]}}
+      </td>
+      <td *ngIf="canDelete">
+        <button type="button" class="btn btn-danger" (click)="delete(row)">Danger</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item" (click)="onPageSelect(currentPage - 1)">
+        <span class="page-link">&laquo;</span>
+        <span class="sr-only">Previous</span>
+    </li>
+    <li class="page-item" *ngIf="currentPage > 1" (click)="onPageSelect(currentPage - 1)">
+      <span class="page-link">{{currentPage - 1}}</span>
+    </li>
+    <li class="page-item active" (click)="onPageSelect(currentPage)">
+      <span class="page-link">{{currentPage}}</span>
+    </li>
+    <li class="page-item" *ngIf="currentPage < TotalPage" (click)="onPageSelect(currentPage + 1)">
+      <span class="page-link">{{currentPage + 1}}</span>
+    </li>
+    <li class="page-item" (click)="onPageSelect(currentPage + 1)">
+        <span class="page-link">&raquo;</span>
+        <span class="sr-only">Next</span>
+    </li>
+  </ul>
+</nav>
+<select  class="dropdown show" name="Manufacturer" [(ngModel)]="currentPageSize" (change)="onPageSizeSelect(currentPageSize)">
+  <option *ngFor="let size of PageSize" value="{{size}}">{{size}}</option>
+</select>
