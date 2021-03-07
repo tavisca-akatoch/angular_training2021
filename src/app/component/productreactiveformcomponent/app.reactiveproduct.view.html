@@ -1,0 +1,153 @@
+<h2>The Product Component</h2>
+
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <td>
+        <form [formGroup]="formGroup" (ngSubmit)="save()">
+          <div class="container">
+            <div class="form-group">
+              <label>Product Row Id</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="ProductRowId"
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="(formSubmitted && !formGroup.controls.ProductRowId.valid)|| (formGroup.controls.ProductRowId.dirty && !formGroup.controls.ProductRowId.valid)"
+              >
+                <p *ngIf="formGroup.controls.ProductRowId.errors?.required">
+                  Product Row Id is Required
+                </p>
+                <p *ngIf="formGroup.controls.ProductRowId.errors?.minLength">
+                  Product Row Id must be 4 digits minimum
+                </p>
+                <p *ngIf="formGroup.controls.ProductRowId.errors?.maxLength">
+                  Product Row Id can be 8 digts maximum
+                </p>
+                <p *ngIf="formGroup.controls.ProductRowId.errors?.pattern">
+                  Product Row Id must be numeirc
+                </p>
+                <p
+                  *ngIf="formGroup.controls.ProductRowId.errors?.even !== undefined && !formGroup.controls.ProductRowId.errors?.even"
+                >
+                  The Product Row Id must be even
+                </p>
+                <p *ngIf="formGroup.controls.ProductRowId.errors?.min">
+                  Value must be grater than 0
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Product Id</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="ProductId"
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="(formSubmitted && !formGroup.controls.ProductId.valid)|| (formGroup.controls.ProductId.dirty && !formGroup.controls.ProductId.valid)"
+              >
+                <p *ngIf="formGroup.controls.ProductId.errors?.required">
+                  Product Id is Required
+                </p>
+                <p *ngIf="formGroup.controls.ProductId.errors?.pattern">
+                  Product Id must start with Prd- followed by digits
+                </p>
+                <p
+                  *ngIf="formGroup.controls.ProductId.errors?.unique !== undefined && !formGroup.controls.ProductId.errors?.unique"
+                >
+                  Product Id must be unique
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Product Name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="ProductName"
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="(formSubmitted && !formGroup.controls.ProductName.valid)|| (formGroup.controls.ProductName.dirty && !formGroup.controls.ProductName.valid)"
+              >
+                <p *ngIf="formGroup.controls.ProductName.errors?.required">
+                  Product Name is Required
+                </p>
+                <p *ngIf="formGroup.controls.ProductName.errors?.pattern">
+                  Product Name must be alphanumeric and start with capital
+                  letter
+                </p>
+              </div>
+            </div>
+            <app-dropdown-component
+              [DropDown]="categories"
+              [FormGroup]="formGroup"
+              [DropDownName]="'CategoryName'"
+            ></app-dropdown-component>
+            <app-dropdown-component
+              [DropDown]="manufacturers"
+              [FormGroup]="formGroup"
+              [DropDownName]="'Manufacturer'"
+            ></app-dropdown-component>
+            <div class="form-group">
+              <label>Description</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="Description"
+              />
+            </div>
+            <div class="form-group">
+              <label>Base Price</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="BasePrice"
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="(formSubmitted && !formGroup.controls.BasePrice.valid) || (formGroup.controls.BasePrice.dirty && !formGroup.controls.BasePrice.valid)"
+              >
+                <p *ngIf="formGroup.controls.BasePrice.errors?.required">
+                  Base Price is Required
+                </p>
+                <p *ngIf="formGroup.controls.BasePrice.errors?.pattern">
+                  Base Price must be positive number greater than 0
+                </p>
+                <p *ngIf="formGroup.controls.BasePrice.errors?.min">
+                  Base Price must be positive number greater than 0
+                </p>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Save" class="btn btn-success" />
+              <input
+                type="button"
+                value="Clear"
+                class="btn btn-warning"
+                (click)="clear()"
+              />
+            </div>
+          </div>
+        </form>
+      </td>
+      <td>
+        <app-datatable-component
+          [DataSource]="products"
+          [PageSize]="pageSize"
+          [TotalPage]="totalPage"
+          (selectedRow)="onSelectedProduct($event)"
+          (deleteRow)="onDeleteProduct($event)"
+          (selectedHeader)="onSelectedHeader($event)"
+          (sortReverse)="onSortOrReverse($event)"
+          (selectedPageSize)="onPageSizeSelect($event)"
+          (selectedPage)="onPageSelect($event)"
+        ></app-datatable-component>
+      </td>
+    </tr>
+  </tbody>
+</table>
