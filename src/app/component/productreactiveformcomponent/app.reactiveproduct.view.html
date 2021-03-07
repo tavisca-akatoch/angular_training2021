@@ -12,10 +12,11 @@
                 type="text"
                 class="form-control"
                 formControlName="ProductRowId"
+                [CheckForError]="formGroup.controls.ProductRowId"
               />
               <div
                 class="alert alert-danger"
-                *ngIf="(formSubmitted && !formGroup.controls.ProductRowId.valid)|| (formGroup.controls.ProductRowId.dirty && !formGroup.controls.ProductRowId.valid)"
+                *ngIf="(formSubmitted && formGroup.controls.ProductRowId.invalid) || (formGroup.controls.ProductRowId.touched && formGroup.controls.ProductRowId.invalid)"
               >
                 <p *ngIf="formGroup.controls.ProductRowId.errors?.required">
                   Product Row Id is Required
@@ -45,10 +46,11 @@
                 type="text"
                 class="form-control"
                 formControlName="ProductId"
+                [CheckForError]="formGroup.controls.ProductId"
               />
               <div
                 class="alert alert-danger"
-                *ngIf="(formSubmitted && !formGroup.controls.ProductId.valid)|| (formGroup.controls.ProductId.dirty && !formGroup.controls.ProductId.valid)"
+                *ngIf="(formSubmitted && formGroup.controls.ProductId.invalid)|| (formGroup.controls.ProductId.touched && formGroup.controls.ProductId.invalid)"
               >
                 <p *ngIf="formGroup.controls.ProductId.errors?.required">
                   Product Id is Required
@@ -69,10 +71,11 @@
                 type="text"
                 class="form-control"
                 formControlName="ProductName"
+                [CheckForError]="formGroup.controls.ProductName"
               />
               <div
                 class="alert alert-danger"
-                *ngIf="(formSubmitted && !formGroup.controls.ProductName.valid)|| (formGroup.controls.ProductName.dirty && !formGroup.controls.ProductName.valid)"
+                *ngIf="(formSubmitted && formGroup.controls.ProductName.invalid)|| (formGroup.controls.ProductName.touched && formGroup.controls.ProductName.invalid)"
               >
                 <p *ngIf="formGroup.controls.ProductName.errors?.required">
                   Product Name is Required
@@ -107,10 +110,11 @@
                 type="text"
                 class="form-control"
                 formControlName="BasePrice"
+                [CheckForError]="formGroup.controls.BasePrice"
               />
               <div
                 class="alert alert-danger"
-                *ngIf="(formSubmitted && !formGroup.controls.BasePrice.valid) || (formGroup.controls.BasePrice.dirty && !formGroup.controls.BasePrice.valid)"
+                *ngIf="(formSubmitted && formGroup.controls.BasePrice.invalid) || (formGroup.controls.BasePrice.touched && formGroup.controls.BasePrice.invalid)"
               >
                 <p *ngIf="formGroup.controls.BasePrice.errors?.required">
                   Base Price is Required

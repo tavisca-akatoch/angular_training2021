@@ -1,13 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>MyAngularApp</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-reactiveproduct-component></app-reactiveproduct-component>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>MyAngularApp</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <app-elementconsumer-component></app-elementconsumer-component>
+    <script>
+      window.onload = function () {
+        let element = document.querySelector("datatable-element");
+        let products = [
+          { Name: "Laptop", ID: "1" },
+          { Name: "Mobile", ID: "2" },
+          { Name: "Hard Disk", ID: "3" },
+          { Name: "Earphones", ID: "4" },
+        ];
+        let sort = false;
+        if (element) {
+          element.Items = products;
+
+          element.addEventListener("sortReverse", function (sortValue) {
+            sort = sortValue.detail;
+          });
+
+          console.log(sort);
+
+          element.addEventListener("selectHeader", function (header) {
+            products.sort((a, b) => {
+              if (a[header.detail] === b[header.detail]) {
+                return 0;
+              }
+              return (
+                (a[header.detail] < b[header.detail] ? -1 : 1) * (sort ? 1 : -1)
+              );
+            });
+          });
+        }
+      };
+    </script>
+  </body>
 </html>

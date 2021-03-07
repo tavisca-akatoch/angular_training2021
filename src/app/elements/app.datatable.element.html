@@ -1,0 +1,14 @@
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th *ngFor="let header of columnHeaders" (click)="onSelectHeader(header)">
+        {{header}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of Items">
+      <td *ngFor="let header of columnHeaders">{{item[header]}}</td>
+    </tr>
+  </tbody>
+</table>
